@@ -1,11 +1,21 @@
-import './App.css';
+import { teal } from '@mui/material/colors';
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Home from './Home';
 
-function App() {
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: teal[600],
+    },
+  },
+});
+
+const App = () => {
   return (
-    <div className='App'>
-      <h1>Eagles</h1>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Home />
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
