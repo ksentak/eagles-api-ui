@@ -1,8 +1,8 @@
+import { useState } from 'react';
+import _ from 'lodash';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import Select from '@mui/material/Select';
-import MenuItem from '@mui/material/MenuItem';
 import CardContent from '@mui/material/CardContent';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
@@ -12,11 +12,27 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
+import DynamicSelect from './components/DynamicSelect';
 import Footer from './components/Footer';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
 const Home = () => {
+  const [requestType, setRequestType] = useState('');
+  const [playerData, setPlayerData] = useState([]);
+
+  const handleChange = (e) => {
+    setRequestType(e.target.value);
+  };
+
+  const clearData = () => {
+    setRequestType('');
+  };
+
+  const makeApiCall = () => {
+    console.log('hey');
+  };
+
   return (
     <>
       <CssBaseline />
@@ -28,7 +44,6 @@ const Home = () => {
         </Toolbar>
       </AppBar>
       <main>
-        {/* Hero unit */}
         <Box
           sx={{
             bgcolor: 'background.paper',
@@ -57,49 +72,50 @@ const Home = () => {
               current roster (2022). The API was built with NestJS and is
               deployed on AWS through a serverless Lambda.
             </Typography>
+            <DynamicSelect
+              requestType={requestType}
+              handleChange={handleChange}
+            />
             <Stack
-              sx={{ pt: 4 }}
+              sx={{ pt: 2 }}
               direction='row'
               spacing={2}
               justifyContent='center'
             >
-              {/* <Select id='get-request-type' value='Request Type'>
-                <MenuItem value={10}>Ten</MenuItem>
-                <MenuItem value={20}>Twenty</MenuItem>
-                <MenuItem value={30}>Thirty</MenuItem>
-              </Select> */}
-              {/* Need to create a dynamic input for user */}
-              {/* https://mui.com/material-ui/react-select/ */}
-              <Button variant='contained'>Make API Call</Button>
-              <Button variant='outlined'>Clear</Button>
+              <Button variant='contained' onClick={makeApiCall}>
+                Make API Call
+              </Button>
+              <Button variant='outlined' onClick={clearData}>
+                Clear
+              </Button>
             </Stack>
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth='md'>
-          {/* End hero unit */}
           <Grid container spacing={4}>
-            {cards.map((card) => (
-              <Grid item key={card} xs={12} sm={6} md={3}>
-                <Card
-                  sx={{
-                    height: '100%',
-                    display: 'flex',
-                    flexDirection: 'column',
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant='h5' component='h2'>
-                      Player Name
-                    </Typography>
-                    <Typography>Number:</Typography>
-                    <Typography>Height:</Typography>
-                    <Typography>Weight:</Typography>
-                    <Typography>Position:</Typography>
-                    <Typography>College:</Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ))}
+            {playerData.length > 0 &&
+              _.map(playerData, (player) => (
+                <Grid item key={player.id} xs={12} sm={6} md={3}>
+                  <Card
+                    sx={{
+                      height: '100%',
+                      display: 'flex',
+                      flexDirection: 'column',
+                    }}
+                  >
+                    <CardContent sx={{ flexGrow: 1 }}>
+                      <Typography gutterBottom variant='h5' component='h2'>
+                        {player.name}
+                      </Typography>
+                      <Typography>Number: {player.number}</Typography>
+                      <Typography>Height: {player.height}</Typography>
+                      <Typography>Weight: {player.weight}</Typography>
+                      <Typography>Position: {player.position}</Typography>
+                      <Typography>College: {player.college}</Typography>
+                    </CardContent>
+                  </Card>
+                </Grid>
+              ))}
           </Grid>
         </Container>
       </main>
