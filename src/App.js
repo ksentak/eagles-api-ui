@@ -1,6 +1,6 @@
 import { teal } from '@mui/material/colors';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-import Home from './Home';
+import Home from './pages/Home';
 
 const theme = createTheme({
   palette: {

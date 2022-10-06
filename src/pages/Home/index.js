@@ -1,9 +1,9 @@
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
 import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
+import Select from '@mui/material/Select';
+import MenuItem from '@mui/material/MenuItem';
 import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
@@ -12,11 +12,11 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
-import Footer from './Footer';
+import Footer from './components/Footer';
 
 const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
 
-export default function App() {
+const Home = () => {
   return (
     <>
       <CssBaseline />
@@ -63,6 +63,13 @@ export default function App() {
               spacing={2}
               justifyContent='center'
             >
+              {/* <Select id='get-request-type' value='Request Type'>
+                <MenuItem value={10}>Ten</MenuItem>
+                <MenuItem value={20}>Twenty</MenuItem>
+                <MenuItem value={30}>Thirty</MenuItem>
+              </Select> */}
+              {/* Need to create a dynamic input for user */}
+              {/* https://mui.com/material-ui/react-select/ */}
               <Button variant='contained'>Make API Call</Button>
               <Button variant='outlined'>Clear</Button>
             </Stack>
@@ -82,17 +89,14 @@ export default function App() {
                 >
                   <CardContent sx={{ flexGrow: 1 }}>
                     <Typography gutterBottom variant='h5' component='h2'>
-                      Heading
+                      Player Name
                     </Typography>
-                    <Typography>
-                      This is a media card. You can use this section to describe
-                      the content.
-                    </Typography>
+                    <Typography>Number:</Typography>
+                    <Typography>Height:</Typography>
+                    <Typography>Weight:</Typography>
+                    <Typography>Position:</Typography>
+                    <Typography>College:</Typography>
                   </CardContent>
-                  {/* <CardActions>
-                    <Button size='small'>View</Button>
-                    <Button size='small'>Edit</Button>
-                  </CardActions> */}
                 </Card>
               </Grid>
             ))}
@@ -102,4 +106,6 @@ export default function App() {
       <Footer />
     </>
   );
-}
+};
+
+export default Home;
