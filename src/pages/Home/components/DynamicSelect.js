@@ -11,7 +11,12 @@ import {
   NON_INPUT_REQUEST_TYPES,
 } from '../../../constants/constants';
 
-const DynamicSelect = ({ handleChange, requestType }) => {
+const DynamicSelect = ({
+  handleTypeChange,
+  handleInputChange,
+  requestType,
+  requestInput,
+}) => {
   const invalidRequestType =
     _.isEmpty(requestType) || _.includes(NON_INPUT_REQUEST_TYPES, requestType);
 
@@ -19,7 +24,7 @@ const DynamicSelect = ({ handleChange, requestType }) => {
     <Stack sx={{ pt: 4 }} direction='row' spacing={2} justifyContent='center'>
       <FormControl sx={{ minWidth: 300 }} size='small'>
         <InputLabel>API</InputLabel>
-        <Select value={requestType} onChange={handleChange}>
+        <Select value={requestType} onChange={handleTypeChange}>
           {_.map(REQUEST_TYPES, (type) => (
             <MenuItem key={type.value} value={type.value}>
               {type.label}
@@ -32,6 +37,8 @@ const DynamicSelect = ({ handleChange, requestType }) => {
         label='Jersey #/Position'
         variant='outlined'
         size='small'
+        value={requestInput}
+        onChange={handleInputChange}
       />
     </Stack>
   );

@@ -15,22 +15,30 @@ import Container from '@mui/material/Container';
 import DynamicSelect from './components/DynamicSelect';
 import Footer from './components/Footer';
 
-const cards = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+import { callEaglesApi } from '../../services/eaglesApi';
 
 const Home = () => {
   const [requestType, setRequestType] = useState('');
+  const [userInput, setUserInput] = useState('');
   const [playerData, setPlayerData] = useState([]);
 
-  const handleChange = (e) => {
+  const handleTypeChange = (e) => {
     setRequestType(e.target.value);
+  };
+
+  const handleInputChange = (e) => {
+    setUserInput(e.target.value);
   };
 
   const clearData = () => {
     setRequestType('');
+    setUserInput('');
+    setPlayerData([]);
   };
 
-  const makeApiCall = () => {
-    console.log('hey');
+  const makeApiCall = async () => {
+    const res = await callEaglesApi(requestType, userInput);
+    setPlayerData(res);
   };
 
   return (
@@ -74,7 +82,8 @@ const Home = () => {
             </Typography>
             <DynamicSelect
               requestType={requestType}
-              handleChange={handleChange}
+              handleTypeChange={handleTypeChange}
+              handleInputChange={handleInputChange}
             />
             <Stack
               sx={{ pt: 2 }}
@@ -105,7 +114,7 @@ const Home = () => {
                   >
                     <CardContent sx={{ flexGrow: 1 }}>
                       <Typography gutterBottom variant='h5' component='h2'>
-                        {player.name}
+                        {player.first_name} {player.last_name}
                       </Typography>
                       <Typography>Number: {player.number}</Typography>
                       <Typography>Height: {player.height}</Typography>
