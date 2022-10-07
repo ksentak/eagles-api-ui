@@ -1,5 +1,3 @@
-import _ from 'lodash';
-
 export const callEaglesApi = (requestType, userInput) => {
   switch (requestType) {
     case 'getAll':
