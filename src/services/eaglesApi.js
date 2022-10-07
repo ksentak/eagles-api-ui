@@ -1,3 +1,5 @@
+import axios from 'axios';
+
 export const callEaglesApi = (requestType, userInput) => {
   switch (requestType) {
     case 'getAll':
@@ -14,37 +16,54 @@ export const callEaglesApi = (requestType, userInput) => {
 };
 
 const getAllPlayers = async () => {
-  const res = await fetch(
-    'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players',
-  );
-  const data = await res.json();
+  try {
+    const res = await axios.get(
+      'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players',
+    );
+    const { data } = res;
 
-  return data;
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getRandomPlayer = async () => {
-  const res = await fetch(
-    'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/random',
-  );
-  const data = await res.json();
+  try {
+    const res = await axios.get(
+      'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/random',
+    );
+    const { data } = await res;
 
-  return [data];
+    return [data];
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getSpecificPlayer = async (jerseyNumber) => {
-  const res = await fetch(
-    `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/${jerseyNumber}`,
-  );
-  const data = await res.json();
+  try {
+    const res = await axios.get(
+      `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/${jerseyNumber}`,
+    );
+    const { data } = res;
 
-  return [data];
+    console.log([data]);
+    return [data];
+  } catch (e) {
+    console.log(e);
+  }
 };
 
 const getPositionGroup = async (positionGroup) => {
-  const res = await fetch(
-    `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/position/${positionGroup}`,
-  );
-  const data = await res.json();
+  try {
+    const res = await axios.get(
+      `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/position/${positionGroup}`,
+    );
+    const { data } = res;
 
-  return data;
+    return data;
+  } catch (e) {
+    console.log(e);
+  }
 };

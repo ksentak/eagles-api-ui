@@ -123,7 +123,7 @@ const Home = () => {
           <Grid container spacing={4}>
             {!_.isEmpty(playerData) &&
               _.map(playerData, (player) => (
-                <Grid item key={player.id} xs={12} sm={6} md={3}>
+                <Grid key={player.id} item xs={12} sm={6} md={3}>
                   <Card
                     sx={{
                       height: '100%',
