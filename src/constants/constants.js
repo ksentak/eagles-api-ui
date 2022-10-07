@@ -18,3 +18,21 @@ export const REQUEST_TYPES = [
 ];
 
 export const NON_INPUT_REQUEST_TYPES = ['getAll', 'getRandom'];
+
+export const VALID_POSITIONS = [
+  'qb',
+  'rb',
+  'wr',
+  'te',
+  't',
+  'g',
+  'c',
+  'de',
+  'dt',
+  'lb',
+  'cb',
+  's',
+  'k',
+  'p',
+  'ls',
+];

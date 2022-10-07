@@ -16,11 +16,13 @@ import DynamicSelect from './components/DynamicSelect';
 import Footer from './components/Footer';
 
 import { callEaglesApi } from '../../services/eaglesApi';
+import { validateApiInput } from '../../utils/validationUtils';
 
 const Home = () => {
   const [requestType, setRequestType] = useState('');
   const [userInput, setUserInput] = useState('');
   const [playerData, setPlayerData] = useState([]);
+  const [validationMessage, setValidationMessage] = useState('');
 
   const handleTypeChange = (e) => {
     setRequestType(e.target.value);
@@ -28,17 +30,29 @@ const Home = () => {
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
+    validateApiInput(e.target.value);
   };
 
   const clearData = () => {
     setRequestType('');
     setUserInput('');
     setPlayerData([]);
+    setValidationMessage('');
   };
 
   const makeApiCall = async () => {
-    const res = await callEaglesApi(requestType, userInput);
-    setPlayerData(res);
+    setValidationMessage('');
+    const { isValidInput, errorMessage } = validateApiInput(
+      requestType,
+      userInput,
+    );
+
+    if (isValidInput) {
+      const res = await callEaglesApi(requestType, userInput);
+      setPlayerData(res);
+    } else {
+      setValidationMessage(errorMessage);
+    }
   };
 
   return (
@@ -98,11 +112,16 @@ const Home = () => {
                 Clear
               </Button>
             </Stack>
+            {validationMessage && (
+              <Typography color='error.main' align='center' sx={{ mt: 2 }}>
+                {validationMessage}
+              </Typography>
+            )}
           </Container>
         </Box>
         <Container sx={{ py: 8 }} maxWidth='md'>
           <Grid container spacing={4}>
-            {playerData.length > 0 &&
+            {!_.isEmpty(playerData) &&
               _.map(playerData, (player) => (
                 <Grid item key={player.id} xs={12} sm={6} md={3}>
                   <Card
