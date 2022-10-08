@@ -73,7 +73,7 @@ const Home = () => {
             pb: 6,
           }}
         >
-          <Container maxWidth='sm'>
+          <Container maxWidth='md'>
             <Typography
               component='h1'
               variant='h2'
@@ -100,15 +100,15 @@ const Home = () => {
               handleInputChange={handleInputChange}
             />
             <Stack
-              sx={{ pt: 2 }}
-              direction='row'
+              sx={{ mt: 1, pt: 2 }}
+              direction={{ sm: 'column', md: 'row' }}
               spacing={2}
               justifyContent='center'
             >
               <Button variant='contained' onClick={makeApiCall}>
                 Make API Call
               </Button>
-              <Button variant='outlined' onClick={clearData}>
+              <Button sx={{ mt: 1 }} variant='outlined' onClick={clearData}>
                 Clear
               </Button>
             </Stack>

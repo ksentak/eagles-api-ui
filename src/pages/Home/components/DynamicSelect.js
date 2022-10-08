@@ -21,7 +21,12 @@ const DynamicSelect = ({
     _.isEmpty(requestType) || _.includes(NON_INPUT_REQUEST_TYPES, requestType);
 
   return (
-    <Stack sx={{ pt: 4 }} direction='row' spacing={2} justifyContent='center'>
+    <Stack
+      sx={{ pt: 4 }}
+      direction={{ sm: 'column', md: 'row' }}
+      spacing={3}
+      justifyContent='center'
+    >
       <FormControl sx={{ minWidth: 300 }} size='small'>
         <InputLabel>API</InputLabel>
         <Select value={requestType} onChange={handleTypeChange}>
@@ -39,6 +44,7 @@ const DynamicSelect = ({
         size='small'
         value={requestInput}
         onChange={handleInputChange}
+        sx={{ mt: 1 }}
       />
     </Stack>
   );
