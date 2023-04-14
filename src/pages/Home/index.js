@@ -61,7 +61,7 @@ const Home = () => {
       <AppBar position='relative'>
         <Toolbar>
           <Typography variant='h6' color='inherit' noWrap>
-            Philadelphia Eagles Roster API (2022)
+            Philadelphia Eagles Roster API (2023)
           </Typography>
         </Toolbar>
       </AppBar>
@@ -91,13 +91,14 @@ const Home = () => {
             >
               An interactive user interface for the Eagles-API. The API allows
               users to obtain basic information about players that are on the
-              current roster (2022). The API was built with NestJS and is
+              current roster (2023). The API was built with NestJS and is
               deployed on AWS through a serverless Lambda.
             </Typography>
             <DynamicSelect
               requestType={requestType}
               handleTypeChange={handleTypeChange}
               handleInputChange={handleInputChange}
+              requestInput={userInput}
             />
             <Stack
               sx={{ mt: 1, pt: 2 }}
