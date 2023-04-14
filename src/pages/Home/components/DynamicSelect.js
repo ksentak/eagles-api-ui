@@ -28,8 +28,13 @@ const DynamicSelect = ({
       justifyContent='center'
     >
       <FormControl sx={{ minWidth: 300 }} size='small'>
-        <InputLabel>API</InputLabel>
-        <Select value={requestType} onChange={handleTypeChange}>
+        <InputLabel id='request-select'>API</InputLabel>
+        <Select
+          labelId='request-select'
+          value={requestType}
+          onChange={handleTypeChange}
+          label='API'
+        >
           {_.map(REQUEST_TYPES, (type) => (
             <MenuItem key={type.value} value={type.value}>
               {type.label}
