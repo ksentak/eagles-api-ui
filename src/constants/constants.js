@@ -24,7 +24,7 @@ export const VALID_POSITIONS = [
   'rb',
   'wr',
   'te',
-  't',
+  'ot',
   'g',
   'c',
   'de',

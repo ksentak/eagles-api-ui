@@ -25,7 +25,7 @@ const validateJerseyNumber = (jerseyNumber) => {
   if (!_.inRange(jerseyNumber, 1, 100)) {
     return {
       isValidInput: false,
-      errorMessage: 'Please enter a valid jersey number (1-99)',
+      errorMessage: 'Please enter a valid jersey number (0-99)',
     };
   }
 
