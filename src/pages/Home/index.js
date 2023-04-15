@@ -38,6 +38,23 @@ const Home = () => {
     setValidationMessage('');
   };
 
+  const formatPlayerData = (players) => {
+    const formattedPlayers = _.map(players, (player) => ({
+      id: player.id,
+      number: player.number,
+      first_name: player.first_name,
+      last_name: player.last_name,
+      position: player.position === 'pk' ? 'K' : _.upperCase(player.position),
+      height: player.height,
+      weight: player.weight,
+      age: player.age,
+      years_pro: player.years_pro,
+      college: player.college,
+    }));
+
+    return formattedPlayers;
+  };
+
   const makeApiCall = async () => {
     setIsLoading(true);
     setValidationMessage('');
@@ -48,8 +65,8 @@ const Home = () => {
 
     if (isValidInput) {
       const res = await callEaglesApi(requestType, userInput);
-      console.log(res);
-      setPlayerData(res);
+      const formattedData = formatPlayerData(res);
+      setPlayerData(formattedData);
     } else {
       setValidationMessage(errorMessage);
     }
