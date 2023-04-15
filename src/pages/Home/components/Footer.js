@@ -4,7 +4,10 @@ import Link from '@mui/material/Link';
 
 const Footer = () => {
   return (
-    <Box sx={{ bgcolor: 'background.paper', p: 6 }} component='footer'>
+    <Box
+      sx={{ bgcolor: 'background.paper', p: 6, mt: '80px' }}
+      component='footer'
+    >
       <Typography variant='body2' color='text.secondary' align='center'>
         {'Copyright © '}
         <Link color='inherit' href='https://keatonsentak.com/'>
