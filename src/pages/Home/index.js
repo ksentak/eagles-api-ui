@@ -2,10 +2,8 @@ import { useState } from 'react';
 import _ from 'lodash';
 import AppBar from '@mui/material/AppBar';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
+
 import CssBaseline from '@mui/material/CssBaseline';
-import Grid from '@mui/material/Grid';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -13,6 +11,8 @@ import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 
 import DynamicSelect from './components/DynamicSelect';
+import PlayerGrid from './components/PlayerGrid';
+import Loader from './components/Loader';
 import Footer from './components/Footer';
 
 import { callEaglesApi } from '../../services/eaglesApi';
@@ -23,6 +23,7 @@ const Home = () => {
   const [userInput, setUserInput] = useState('');
   const [playerData, setPlayerData] = useState([]);
   const [validationMessage, setValidationMessage] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleTypeChange = (e) => {
     setRequestType(e.target.value);
@@ -41,6 +42,7 @@ const Home = () => {
   };
 
   const makeApiCall = async () => {
+    setIsLoading(true);
     setValidationMessage('');
     const { isValidInput, errorMessage } = validateApiInput(
       requestType,
@@ -49,10 +51,12 @@ const Home = () => {
 
     if (isValidInput) {
       const res = await callEaglesApi(requestType, userInput);
+      console.log(res);
       setPlayerData(res);
     } else {
       setValidationMessage(errorMessage);
     }
+    setIsLoading(false);
   };
 
   return (
@@ -124,33 +128,8 @@ const Home = () => {
             )}
           </Container>
         </Box>
-        <Container sx={{ py: 8 }} maxWidth='md'>
-          <Grid container spacing={4}>
-            {!_.isEmpty(playerData) &&
-              _.map(playerData, (player) => (
-                <Grid key={player.id} item xs={12} sm={6} md={4}>
-                  <Card
-                    sx={{
-                      height: '100%',
-                      display: 'flex',
-                      flexDirection: 'column',
-                    }}
-                  >
-                    <CardContent sx={{ flexGrow: 1 }}>
-                      <Typography gutterBottom variant='h5' component='h2'>
-                        {player.first_name} {player.last_name}
-                      </Typography>
-                      <Typography>Number: {player.number}</Typography>
-                      <Typography>Height: {player.height}</Typography>
-                      <Typography>Weight: {player.weight}</Typography>
-                      <Typography>Position: {player.position}</Typography>
-                      <Typography>College: {player.college}</Typography>
-                    </CardContent>
-                  </Card>
-                </Grid>
-              ))}
-          </Grid>
-        </Container>
+        {isLoading && <Loader />}
+        {playerData.length > 0 && <PlayerGrid playerData={playerData} />}
       </main>
       <Footer />
     </>
