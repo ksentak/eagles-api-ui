@@ -56,15 +56,20 @@ const Home = () => {
   };
 
   const makeApiCall = async () => {
+    const parsedUserInput = !_.isNumber(userInput)
+      ? _.lowerCase(userInput) === 'k'
+        ? 'pk'
+        : _.lowerCase(userInput)
+      : userInput;
     setIsLoading(true);
     setValidationMessage('');
     const { isValidInput, errorMessage } = validateApiInput(
       requestType,
-      userInput,
+      parsedUserInput,
     );
 
     if (isValidInput) {
-      const res = await callEaglesApi(requestType, userInput);
+      const res = await callEaglesApi(requestType, parsedUserInput);
       const formattedData = formatPlayerData(res);
       setPlayerData(formattedData);
     } else {

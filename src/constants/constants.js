@@ -32,7 +32,7 @@ export const VALID_POSITIONS = [
   'lb',
   'cb',
   's',
-  'k',
+  'pk',
   'p',
   'ls',
 ];

@@ -22,7 +22,7 @@ export const validateApiInput = (requestType, userInput) => {
 };
 
 const validateJerseyNumber = (jerseyNumber) => {
-  if (!_.inRange(jerseyNumber, 1, 100)) {
+  if (!_.inRange(jerseyNumber, 0, 100)) {
     return {
       isValidInput: false,
       errorMessage: 'Please enter a valid jersey number (0-99)',
