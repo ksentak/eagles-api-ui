@@ -106,7 +106,11 @@ const Home = () => {
               spacing={2}
               justifyContent='center'
             >
-              <Button variant='contained' onClick={makeApiCall}>
+              <Button
+                variant='contained'
+                disabled={!requestType}
+                onClick={makeApiCall}
+              >
                 Make API Call
               </Button>
               <Button sx={{ mt: 1 }} variant='outlined' onClick={clearData}>
