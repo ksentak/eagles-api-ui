@@ -3,11 +3,11 @@ import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
-import TextField from '@mui/material/TextField';
 import Stack from '@mui/material/Stack';
 import {
   REQUEST_TYPES,
   NON_INPUT_REQUEST_TYPES,
+  POSITION_GROUPS,
 } from '../../../constants/constants';
 
 const DynamicSelect = ({
@@ -41,15 +41,41 @@ const DynamicSelect = ({
           ))}
         </Select>
       </FormControl>
-      <TextField
-        disabled={invalidRequestType}
-        label='Jersey #/Position'
-        variant='outlined'
-        size='small'
-        value={requestInput}
-        onChange={handleInputChange}
-        sx={{ mt: 1 }}
-      />
+      {!invalidRequestType && requestType === 'getSpecificPlayer' && (
+        <FormControl sx={{ minWidth: 300 }} size='small'>
+          <InputLabel id='request-select'>Jersey Number</InputLabel>
+          <Select
+            labelId='jersey-select'
+            value={requestInput}
+            onChange={handleInputChange}
+            label='Jersey Number'
+            required
+          >
+            {[...Array(100).keys()].map((num) => (
+              <MenuItem key={num} value={_.toString(num)}>
+                {num}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
+      {!invalidRequestType && requestType === 'getPositionGroup' && (
+        <FormControl sx={{ minWidth: 300 }} size='small'>
+          <InputLabel id='request-select'>Position</InputLabel>
+          <Select
+            labelId='position-select'
+            value={requestInput}
+            onChange={handleInputChange}
+            label='Position'
+          >
+            {_.map(POSITION_GROUPS, (position) => (
+              <MenuItem key={position.value} value={position.value}>
+                {position.label}
+              </MenuItem>
+            ))}
+          </Select>
+        </FormControl>
+      )}
     </Stack>
   );
 };
