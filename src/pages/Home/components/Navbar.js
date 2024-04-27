@@ -10,7 +10,7 @@ const Navbar = () => {
       <AppBar position='relative'>
         <Toolbar>
           <Typography variant='h6' color='inherit' noWrap>
-            Philadelphia Eagles Roster API (2023)
+            Philadelphia Eagles Roster API
           </Typography>
         </Toolbar>
       </AppBar>

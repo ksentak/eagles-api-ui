@@ -10,7 +10,6 @@ import Navbar from './components/Navbar';
 import DynamicSelect from './components/DynamicSelect';
 import PlayerGrid from './components/PlayerGrid';
 import Loader from './components/Loader';
-import Footer from './components/Footer';
 
 import { callEaglesApi } from '../../services/eaglesApi';
 import { validateApiInput } from '../../utils/validationUtils';
@@ -107,8 +106,8 @@ const Home = () => {
             >
               An interactive user interface for the Eagles-API. The API allows
               users to obtain basic information about players that are on the
-              current roster (2023). The API was built with NestJS and is
-              deployed on AWS through a serverless Lambda.
+              current roster. The API was built with NestJS and is deployed on
+              AWS through a serverless Lambda.
             </Typography>
             <DynamicSelect
               requestType={requestType}
@@ -143,7 +142,6 @@ const Home = () => {
         {isLoading && <Loader />}
         {playerData.length > 0 && <PlayerGrid playerData={playerData} />}
       </main>
-      <Footer />
     </>
   );
 };
