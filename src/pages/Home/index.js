@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import _ from 'lodash';
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import Box from '@mui/material/Box';
@@ -12,68 +11,34 @@ import PlayerGrid from './components/PlayerGrid';
 import Loader from './components/Loader';
 
 import { callEaglesApi } from '../../services/eaglesApi';
-import { validateApiInput } from '../../utils/validationUtils';
+import { formatPlayerData, disableApiCall } from '../../utils/utils';
 
 const Home = () => {
   const [requestType, setRequestType] = useState('');
   const [userInput, setUserInput] = useState('');
   const [playerData, setPlayerData] = useState([]);
-  const [validationMessage, setValidationMessage] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   const handleTypeChange = (e) => {
     setRequestType(e.target.value);
+    setUserInput('');
   };
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
-    validateApiInput(e.target.value);
   };
 
   const clearData = () => {
     setRequestType('');
     setUserInput('');
     setPlayerData([]);
-    setValidationMessage('');
-  };
-
-  const formatPlayerData = (players) => {
-    const formattedPlayers = _.map(players, (player) => ({
-      id: player.id,
-      number: player.number,
-      first_name: player.first_name,
-      last_name: player.last_name,
-      position: player.position === 'pk' ? 'K' : _.upperCase(player.position),
-      height: player.height,
-      weight: player.weight,
-      age: player.age,
-      years_pro: player.years_pro,
-      college: player.college,
-    }));
-
-    return formattedPlayers;
   };
 
   const makeApiCall = async () => {
-    const parsedUserInput = !_.isNumber(userInput)
-      ? _.lowerCase(userInput) === 'k'
-        ? 'pk'
-        : _.lowerCase(userInput)
-      : userInput;
     setIsLoading(true);
-    setValidationMessage('');
-    const { isValidInput, errorMessage } = validateApiInput(
-      requestType,
-      parsedUserInput,
-    );
-
-    if (isValidInput) {
-      const res = await callEaglesApi(requestType, parsedUserInput);
-      const formattedData = formatPlayerData(res);
-      setPlayerData(formattedData);
-    } else {
-      setValidationMessage(errorMessage);
-    }
+    const res = await callEaglesApi(requestType, userInput);
+    const formattedData = formatPlayerData(res);
+    setPlayerData(formattedData);
     setIsLoading(false);
   };
 
@@ -123,7 +88,7 @@ const Home = () => {
             >
               <Button
                 variant='contained'
-                disabled={!requestType}
+                disabled={disableApiCall(requestType, userInput)}
                 onClick={makeApiCall}
               >
                 Make API Call
@@ -132,11 +97,6 @@ const Home = () => {
                 Clear
               </Button>
             </Stack>
-            {validationMessage && (
-              <Typography color='error.main' align='center' sx={{ mt: 2 }}>
-                {validationMessage}
-              </Typography>
-            )}
           </Container>
         </Box>
         {isLoading && <Loader />}

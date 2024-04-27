@@ -48,7 +48,6 @@ const getSpecificPlayer = async (jerseyNumber) => {
     );
     const { data } = res;
 
-    console.log([data]);
     return [data];
   } catch (e) {
     console.log(e);

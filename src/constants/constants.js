@@ -19,20 +19,20 @@ export const REQUEST_TYPES = [
 
 export const NON_INPUT_REQUEST_TYPES = ['getAll', 'getRandom'];
 
-export const VALID_POSITIONS = [
-  'qb',
-  'rb',
-  'wr',
-  'te',
-  'ot',
-  'g',
-  'c',
-  'de',
-  'dt',
-  'lb',
-  'cb',
-  's',
-  'pk',
-  'p',
-  'ls',
+export const POSITION_GROUPS = [
+  { label: 'QB', value: 'qb' },
+  { label: 'RB', value: 'rb' },
+  { label: 'WR', value: 'wr' },
+  { label: 'TE', value: 'te' },
+  { label: 'OT', value: 'ot' },
+  { label: 'G', value: 'g' },
+  { label: 'C', value: 'c' },
+  { label: 'DE', value: 'de' },
+  { label: 'DT', value: 'dt' },
+  { label: 'LB', value: 'lb' },
+  { label: 'CB', value: 'cb' },
+  { label: 'S', value: 's' },
+  { label: 'K', value: 'pk' },
+  { label: 'P', value: 'p' },
+  { label: 'LS', value: 'ls' },
 ];
