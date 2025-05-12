@@ -15,11 +15,12 @@ export const callEaglesApi = (requestType, userInput) => {
   }
 };
 
+const baseUrl =
+  'https://eagles-api-service-189864895985.us-east1.run.app/api/v1';
+
 const getAllPlayers = async () => {
   try {
-    const res = await axios.get(
-      'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players',
-    );
+    const res = await axios.get(`${baseUrl}/players`);
     const { data } = res;
 
     return data;
@@ -30,9 +31,7 @@ const getAllPlayers = async () => {
 
 const getRandomPlayer = async () => {
   try {
-    const res = await axios.get(
-      'https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/random',
-    );
+    const res = await axios.get(`${baseUrl}/players/random`);
     const { data } = await res;
 
     return [data];
@@ -43,9 +42,7 @@ const getRandomPlayer = async () => {
 
 const getSpecificPlayer = async (jerseyNumber) => {
   try {
-    const res = await axios.get(
-      `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/${jerseyNumber}`,
-    );
+    const res = await axios.get(`${baseUrl}/players/${jerseyNumber}`);
     const { data } = res;
 
     return [data];
@@ -56,9 +53,7 @@ const getSpecificPlayer = async (jerseyNumber) => {
 
 const getPositionGroup = async (positionGroup) => {
   try {
-    const res = await axios.get(
-      `https://5o1j7ybsh2.execute-api.us-east-1.amazonaws.com/prod/players/position/${positionGroup}`,
-    );
+    const res = await axios.get(`${baseUrl}/players/position/${positionGroup}`);
     const { data } = res;
 
     return data;
